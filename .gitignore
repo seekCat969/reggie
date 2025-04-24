@@ -3,6 +3,7 @@ target/
 src/test/
 src/main/resources/static
 src/main/resources/templates
+reggie.iml
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
