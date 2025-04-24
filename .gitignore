@@ -1,6 +1,6 @@
 HELP.md
 target/
-src/test
+src/test/
 src/main/resources/static
 src/main/resources/templates
 !.mvn/wrapper/maven-wrapper.jar
