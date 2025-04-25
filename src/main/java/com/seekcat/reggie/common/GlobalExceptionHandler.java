@@ -1,6 +1,5 @@
-package com.seekcat.reggie.exception;
+package com.seekcat.reggie.common;
 
-import com.seekcat.reggie.common.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

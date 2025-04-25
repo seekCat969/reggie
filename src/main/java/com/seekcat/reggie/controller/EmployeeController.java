@@ -11,9 +11,6 @@ import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Slf4j
 @RestController
@@ -78,18 +75,35 @@ public class EmployeeController {
      * 分页查询
      */
     @GetMapping("/page")
-    public Result<Map<String, Object>> selectEmployeeIndividualPage(@RequestParam(defaultValue = "1") Integer page,
-                                                                    @RequestParam(defaultValue = "10") Integer pageSize,
-                                                                    @RequestParam(defaultValue = "") String name) {
+    public Result<Page> selectEmployeeIndividualPage(@RequestParam(defaultValue = "1") Integer page,
+                                                     @RequestParam(defaultValue = "10") Integer pageSize,
+                                                     @RequestParam(defaultValue = "") String name) {
         Page p1 = new Page(page, pageSize);
-        p1 = employeeServiceImpl.lambdaQuery().select(Employee::getName,
-                Employee::getUsername,
-                Employee::getPhone,
-                Employee::getStatus).like(name != "", Employee::getName, name).page(p1);
+        p1 = employeeServiceImpl.lambdaQuery().select().like(name != "", Employee::getName, name).page(p1);
 
-        Map<String, Object> result = new HashMap<>();
-        result.put("records", p1.getRecords());
-        result.put("total", p1.getTotal());
-        return Result.success(result);
+        return Result.success(p1);
+    }
+
+    /**
+     * 禁用-启用员工
+     * 0禁用状态 1正常状态
+     * <p>
+     * 更新员工信息
+     */
+    @PutMapping
+    public Result<String> updateEmployee(HttpServletRequest request, @RequestBody Employee employee) {
+        employee.setUpdateTime(LocalDateTime.now());
+        employee.setUpdateUser((Long) request.getSession().getAttribute("employee"));
+        employeeServiceImpl.updateById(employee);
+
+        return Result.success("更新成功");
+    }
+
+    /**
+     * 根据id查询员工
+     */
+    @GetMapping("/{id}")
+    public Result<Employee> selectById(@PathVariable Long id) {
+        return Result.success(employeeServiceImpl.getById(id));
     }
 }
