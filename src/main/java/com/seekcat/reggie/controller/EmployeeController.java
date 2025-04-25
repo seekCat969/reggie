@@ -58,15 +58,9 @@ public class EmployeeController {
      * 新增员工
      */
     @PostMapping
-    public Result<Employee> insertEmployee(HttpServletRequest httpServletRequest, @RequestBody Employee employee) {
-        Long user = (Long) httpServletRequest.getSession().getAttribute("employee");
-        employee.setCreateUser(user);
-        employee.setUpdateUser(user);
-        employee.setCreateTime(LocalDateTime.now());
-        employee.setUpdateTime(LocalDateTime.now());
+    public Result<Employee> insertEmployee(@RequestBody Employee employee) {
         String idNumber = employee.getIdNumber();
         employee.setPassword(DigestUtils.md5DigestAsHex(idNumber.substring(idNumber.length() - 6).getBytes()));
-
         employeeServiceImpl.save(employee);
         return Result.success(employee);
     }
@@ -91,9 +85,7 @@ public class EmployeeController {
      * 更新员工信息
      */
     @PutMapping
-    public Result<String> updateEmployee(HttpServletRequest request, @RequestBody Employee employee) {
-        employee.setUpdateTime(LocalDateTime.now());
-        employee.setUpdateUser((Long) request.getSession().getAttribute("employee"));
+    public Result<String> updateEmployee(@RequestBody Employee employee) {
         employeeServiceImpl.updateById(employee);
 
         return Result.success("更新成功");
