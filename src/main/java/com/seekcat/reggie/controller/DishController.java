@@ -1,6 +1,6 @@
 package com.seekcat.reggie.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.seekcat.reggie.common.OSSManage;
 import com.seekcat.reggie.common.Result;
@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 
 @Slf4j
@@ -128,5 +127,14 @@ public class DishController {
         });
 
         return Result.success(null);
+    }
+
+    /**
+     * 根据种类查询菜品
+     * */
+    @GetMapping("/list")
+    public Result<List<Dish>> selectDishWithCategory(@RequestParam String categoryId){
+        List<Dish> dishes = dishService.lambdaQuery().eq(Dish::getCategoryId, categoryId).list();
+        return Result.success(dishes);
     }
 }
