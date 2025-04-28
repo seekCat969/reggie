@@ -25,4 +25,11 @@ mybatis-plus:
       id-type: ASSIGN_ID
   type-aliases-package: com.seekcat.reggie.pojo
 
+oss:
+  base-param:
+    endpoint: https://oss-cn-chengdu.aliyuncs.com/
+    bucket-name: reggie-learn-project
+    object-name: images/
+    region: cn-chengdu
+    down-url: https://reggie-learn-project.oss-cn-chengdu.aliyuncs.com/
 

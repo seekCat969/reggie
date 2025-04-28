@@ -31,7 +31,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
         LoginCheckInterceptor.setUserID((Long) request.getSession().getAttribute("employee"));
 
         if (request.getSession().getAttribute("employee") != null) {
-            log.warn("用户已登录，ID：{}", request.getSession().getAttribute("employee"));
+//            log.warn("用户已登录，ID：{}", request.getSession().getAttribute("employee"));
             return true;
         }
         ObjectMapper objectMapper = new ObjectMapper();

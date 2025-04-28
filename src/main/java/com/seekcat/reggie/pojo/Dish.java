@@ -4,7 +4,10 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -12,8 +15,21 @@ import java.time.LocalDateTime;
 /**
  菜品
  */
+@NoArgsConstructor
 @Data
 public class Dish implements Serializable {
+
+    public Dish(Long id, String name, Long categoryId, BigDecimal price, String code, String image, String description, Integer status, Integer sort) {
+        this.id = id;
+        this.name = name;
+        this.categoryId = categoryId;
+        this.price = price;
+        this.code = code;
+        this.image = image;
+        this.description = description;
+        this.status = status;
+        this.sort = sort;
+    }
 
     private static final long serialVersionUID = 1L;
 
