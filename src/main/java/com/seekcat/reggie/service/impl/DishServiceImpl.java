@@ -25,9 +25,10 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements Di
     public void saveDto(DishDto dishDto) {
         this.save(dishDto);
 
+        Long id = dishDto.getId();
         List<DishFlavor> flavors = dishDto.getFlavors();
         flavors.forEach((DishFlavor dishFlavor) -> {
-            dishFlavor.setDishId(dishFlavor.getId());
+            dishFlavor.setDishId(id);
         });
         dishFlavorService.saveBatch(flavors);
     }

@@ -34,6 +34,9 @@ public class UploadController {
     @Resource
     RestTemplate restTemplate;
 
+    /**
+     * 上传图片
+     * */
     @PostMapping("/upload")
     public Result<String> upload(MultipartFile file) throws Exception {
         log.warn(file.toString());
@@ -42,6 +45,9 @@ public class UploadController {
         return Result.success(fileName);
     }
 
+    /**
+     * 下载图片传到前端
+     * */
     @GetMapping("download")
     public Result<String> download(HttpServletResponse httpServletResponse, @RequestParam String name) throws IOException {
         String url = downUrl + name;
