@@ -1,7 +1,7 @@
-package com.seekcat.reggie.pojo.DTO;
+package com.seekcat.reggie.entity.DTO;
 
-import com.seekcat.reggie.pojo.Setmeal;
-import com.seekcat.reggie.pojo.SetmealDish;
+import com.seekcat.reggie.entity.Setmeal;
+import com.seekcat.reggie.entity.SetmealDish;
 import lombok.Data;
 import java.util.List;
 

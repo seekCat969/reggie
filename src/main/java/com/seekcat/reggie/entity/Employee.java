@@ -1,4 +1,4 @@
-package com.seekcat.reggie.pojo;
+package com.seekcat.reggie.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;

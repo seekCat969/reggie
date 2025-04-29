@@ -2,6 +2,8 @@ package com.seekcat.reggie.common;
 
 import com.aliyun.oss.ClientException;
 import com.aliyun.oss.OSSException;
+import com.seekcat.reggie.exception.statusException.DishStatusException;
+import com.seekcat.reggie.exception.statusException.SetmealStatusException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -60,5 +62,17 @@ public class GlobalExceptionHandler {
             return Result.error("客户端异常");
         }
         return GlobalExceptionHandler.unknowError();
+    }
+
+    @ExceptionHandler(DishStatusException.class)
+    public Result<String> dishStatusExceptionHandle(DishStatusException de){
+        log.error(de.getMessage());
+        return Result.error(de.getMessage());
+    }
+
+    @ExceptionHandler(SetmealStatusException.class)
+    public Result<String> setmealStatusExceptionHandle(SetmealStatusException sse){
+        log.error(sse.getMessage());
+        return Result.error(sse.getMessage());
     }
 }

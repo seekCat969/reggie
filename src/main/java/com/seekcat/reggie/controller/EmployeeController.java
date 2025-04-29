@@ -2,15 +2,13 @@ package com.seekcat.reggie.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.seekcat.reggie.common.Result;
-import com.seekcat.reggie.pojo.Employee;
+import com.seekcat.reggie.entity.Employee;
 import com.seekcat.reggie.service.impl.EmployeeServiceImpl;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
 
 @Slf4j
 @RestController
@@ -71,9 +69,9 @@ public class EmployeeController {
     @GetMapping("/page")
     public Result<Page> selectEmployeeIndividualPage(@RequestParam(defaultValue = "1") Integer page,
                                                      @RequestParam(defaultValue = "10") Integer pageSize,
-                                                     @RequestParam(defaultValue = "") String name) {
-        Page p1 = new Page(page, pageSize);
-        p1 = employeeServiceImpl.lambdaQuery().select().like(name != "", Employee::getName, name).page(p1);
+                                                     @RequestParam(required = false) String name) {
+        Page<Employee> p1 = new Page<>(page, pageSize);
+        employeeServiceImpl.lambdaQuery().like(name != null, Employee::getName, name).page(p1);
 
         return Result.success(p1);
     }

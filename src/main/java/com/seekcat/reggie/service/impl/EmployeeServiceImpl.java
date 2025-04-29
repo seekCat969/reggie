@@ -2,7 +2,7 @@ package com.seekcat.reggie.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.seekcat.reggie.mapper.EmployeeMapper;
-import com.seekcat.reggie.pojo.Employee;
+import com.seekcat.reggie.entity.Employee;
 import com.seekcat.reggie.service.EmployeeService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;

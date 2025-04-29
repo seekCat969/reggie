@@ -4,9 +4,10 @@ package com.seekcat.reggie.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.seekcat.reggie.common.OSSManage;
 import com.seekcat.reggie.common.Result;
-import com.seekcat.reggie.pojo.DTO.DishDto;
-import com.seekcat.reggie.pojo.Dish;
-import com.seekcat.reggie.pojo.DishFlavor;
+import com.seekcat.reggie.entity.DTO.DishDto;
+import com.seekcat.reggie.entity.Dish;
+import com.seekcat.reggie.entity.DishFlavor;
+import com.seekcat.reggie.exception.statusException.DishStatusException;
 import com.seekcat.reggie.service.impl.CategoryServiceImpl;
 import com.seekcat.reggie.service.impl.DishFlavorServiceImpl;
 import com.seekcat.reggie.service.impl.DishServiceImpl;
@@ -87,13 +88,18 @@ public class DishController {
     /**
      * 删除菜品
      */
+    @Transactional
     @DeleteMapping
     public Result<String> deleteDishById(@RequestParam(name = "ids") List<Long> ids) {
         ids.forEach(id -> {
             Dish d = dishService.getById(id);
+            if (!d.getStatus().equals(1)) {
+                throw new DishStatusException(d.getName());
+            }
             dishService.removeById(id);
             ossManage.deleteImage(d.getImage());
             dishFlavorService.lambdaUpdate().eq(DishFlavor::getDishId, id).remove();
+
         });
         return Result.success(null);
     }
@@ -122,19 +128,17 @@ public class DishController {
      */
     @PostMapping("/status/{status}")
     public Result<String> switchDish(@RequestParam(name = "ids") List<Long> ids, @PathVariable Integer status) {
-        ids.forEach((Long id) -> {
-            dishService.lambdaUpdate().eq(Dish::getId, id).set(Dish::getStatus, status).update();
-        });
+        ids.forEach((Long id) -> dishService.lambdaUpdate().eq(Dish::getId, id).set(Dish::getStatus, status).update());
 
         return Result.success(null);
     }
 
     /**
      * 根据种类查询菜品
-     * */
+     */
     @GetMapping("/list")
-    public Result<List<Dish>> selectDishWithCategory(@RequestParam String categoryId){
-        List<Dish> dishes = dishService.lambdaQuery().eq(Dish::getCategoryId, categoryId).list();
+    public Result<List<Dish>> selectDishWithCategory(@RequestParam String categoryId) {
+        List<Dish> dishes = dishService.lambdaQuery().eq(Dish::getCategoryId, categoryId).eq(Dish::getStatus, 1).list();
         return Result.success(dishes);
     }
 }

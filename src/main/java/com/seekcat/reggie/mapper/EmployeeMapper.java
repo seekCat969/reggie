@@ -2,7 +2,7 @@ package com.seekcat.reggie.mapper;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.seekcat.reggie.pojo.Employee;
+import com.seekcat.reggie.entity.Employee;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

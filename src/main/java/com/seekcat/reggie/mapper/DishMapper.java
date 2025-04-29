@@ -1,7 +1,7 @@
 package com.seekcat.reggie.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.seekcat.reggie.pojo.Dish;
+import com.seekcat.reggie.entity.Dish;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

@@ -1,11 +1,9 @@
 package com.seekcat.reggie;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.seekcat.reggie.mapper.DishMapper;
 import com.seekcat.reggie.mapper.EmployeeMapper;
-import com.seekcat.reggie.pojo.Dish;
-import com.seekcat.reggie.pojo.Employee;
+import com.seekcat.reggie.entity.Dish;
 import com.seekcat.reggie.service.impl.EmployeeServiceImpl;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -13,9 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.DigestUtils;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 @Slf4j
 @SpringBootTest

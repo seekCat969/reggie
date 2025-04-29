@@ -2,16 +2,13 @@ package com.seekcat.reggie.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.seekcat.reggie.common.Result;
-import com.seekcat.reggie.pojo.Category;
-import com.seekcat.reggie.pojo.Dish;
+import com.seekcat.reggie.entity.Category;
 import com.seekcat.reggie.service.impl.CategoryServiceImpl;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 
 @Slf4j
