@@ -8,6 +8,7 @@ import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -60,10 +61,9 @@ public class CategoryController {
      * 发送菜品分类
      */
     @GetMapping("/list")
-    public Result<List<Category>> selectCategory(@RequestParam Integer type) {
-        List<Category> list = categoryService.lambdaQuery().eq(Category::getType, type).list();
+    public Result<List<Category>> selectCategory(@RequestParam(required = false) Integer type) {
+        List<Category> list = categoryService.lambdaQuery().eq(type != null, Category::getType, type).list();
         return Result.success(list);
     }
-
 
 }

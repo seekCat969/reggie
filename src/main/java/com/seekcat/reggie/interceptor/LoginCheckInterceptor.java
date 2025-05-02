@@ -17,11 +17,11 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 
     private static ThreadLocal<Long> threadLocal = new ThreadLocal<>();
 
-    public static void setUserID(Long id){
+    public static void setUserID(Long id) {
         threadLocal.set(id);
     }
 
-    public static Long getUserID(){
+    public static Long getUserID() {
         return threadLocal.get();
     }
 
@@ -29,8 +29,14 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
         LoginCheckInterceptor.setUserID((Long) request.getSession().getAttribute("employee"));
+        LoginCheckInterceptor.setUserID((Long) request.getSession().getAttribute("user"));
+
 
         if (request.getSession().getAttribute("employee") != null) {
+//            log.warn("用户已登录，ID：{}", request.getSession().getAttribute("employee"));
+            return true;
+        }
+        if (request.getSession().getAttribute("user") != null) {
 //            log.warn("用户已登录，ID：{}", request.getSession().getAttribute("employee"));
             return true;
         }
@@ -45,6 +51,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
         String json = objectMapper
                 .writerWithDefaultPrettyPrinter()  //开启格式化输出
                 .writeValueAsString(map);
+
         response.setContentType("application/json;charset=UTF-8");
         response.getWriter().write(json);
         return false;

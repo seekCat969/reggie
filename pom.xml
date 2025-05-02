@@ -115,6 +115,13 @@
             <optional>true</optional>
         </dependency>
 
+<!--        阿里云短信-->
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>dysmsapi20170525</artifactId>
+            <version>4.1.0</version>
+        </dependency>
+
     </dependencies>
 
     <dependencyManagement>
@@ -128,6 +135,8 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+
 
     <build>
         <plugins>

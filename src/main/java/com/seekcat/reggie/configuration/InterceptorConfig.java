@@ -21,6 +21,8 @@ public class InterceptorConfig implements WebMvcConfigurer {
         list.add("/employee/logout");
         list.add("/backend/**");
         list.add("/front/**");
+        list.add("/user/login");
+        list.add("/user/sendMsg");
 
         registry.addInterceptor(loginCheckInterceptor)
                 .addPathPatterns("/**")
