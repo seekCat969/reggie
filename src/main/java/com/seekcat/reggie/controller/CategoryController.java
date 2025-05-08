@@ -8,7 +8,6 @@ import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -65,5 +64,4 @@ public class CategoryController {
         List<Category> list = categoryService.lambdaQuery().eq(type != null, Category::getType, type).list();
         return Result.success(list);
     }
-
 }

@@ -13,3 +13,20 @@ public class RegierApplication {
         SpringApplication.run(RegierApplication.class, args);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

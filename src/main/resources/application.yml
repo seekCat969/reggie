@@ -9,6 +9,12 @@ spring:
     url: jdbc:mysql://localhost:3306/reggie
     username: root
     password: al2001131
+  data:
+    redis:
+      host: 192.168.182.138
+      port: 6379
+      database: 0
+      password: al2001131
 #  sql:
 #    init:
 #      schema-locations: classpath:db/schema-h2.sql
@@ -23,7 +29,7 @@ mybatis-plus:
   global-config:
     db-config:
       id-type: ASSIGN_ID
-  type-aliases-package: com.seekcat.reggie.pojo
+  type-aliases-package: com.seekcat.reggie.entity
 
 oss:
   base-param:
@@ -32,4 +38,3 @@ oss:
     object-name: images/
     region: cn-chengdu
     down-url: https://reggie-learn-project.oss-cn-chengdu.aliyuncs.com/
-
