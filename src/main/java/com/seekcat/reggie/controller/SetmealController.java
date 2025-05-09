@@ -1,7 +1,6 @@
 package com.seekcat.reggie.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.seekcat.reggie.common.OSSManage;
 import com.seekcat.reggie.common.Result;
 import com.seekcat.reggie.entity.Category;
 import com.seekcat.reggie.entity.DTO.SetmealDto;
@@ -33,8 +32,6 @@ public class SetmealController {
     @Resource
     CategoryServiceImpl categoryService;
 
-    @Resource
-    OSSManage ossManage;
 
     /**
      * 分页查询
@@ -74,9 +71,7 @@ public class SetmealController {
         setmealService.save(setmeal);
 
         Long setmealId = setmeal.getId();
-        setmealDishes.forEach(setmealDish -> {
-            setmealDish.setSetmealId(setmealId);
-        });
+        setmealDishes.forEach(setmealDish -> setmealDish.setSetmealId(setmealId));
 
         setmealDishService.saveBatch(setmealDishes);
 
@@ -122,9 +117,7 @@ public class SetmealController {
 
         BeanUtils.copyProperties(setmealDto, setmeal);
 
-        setmealDto.getSetmealDishes().forEach(setmealDish -> {
-            setmealDish.setSetmealId(setmealDto.getId());
-        });
+        setmealDto.getSetmealDishes().forEach(setmealDish -> setmealDish.setSetmealId(setmealDto.getId()));
 
         setmealService.updateById(setmeal);
         setmealDishService.lambdaUpdate().eq(SetmealDish::getSetmealId, setmeal.getId()).remove();

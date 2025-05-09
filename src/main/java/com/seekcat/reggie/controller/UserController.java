@@ -18,7 +18,7 @@ public class UserController {
     @PostMapping("/login")
     public Result<String> login(@RequestBody User user, HttpServletRequest request) {
         if (!userService.lambdaQuery().eq(User::getPhone,user.getPhone()).exists()){
-
+            return Result.error("");
         }
         request.getSession().setAttribute("user", userService.lambdaQuery().eq(User::getPhone, user.getPhone()).one().getId());
         return Result.success("登录成功");

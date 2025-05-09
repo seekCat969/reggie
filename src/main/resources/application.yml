@@ -1,9 +1,11 @@
 server:
   address: localhost
   port: 8080
+
 spring:
   application:
     name: reggie
+    version: 1.0
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/reggie
@@ -15,6 +17,13 @@ spring:
       port: 6379
       database: 0
       password: al2001131
+  cache:
+    redis:
+      cache-null-values: false
+      time-to-live: 3600000
+#  jackson:
+#    date-format: yyyy-MM-dd HH:mm:ss
+#    time-zone: Asian/Shanghai
 #  sql:
 #    init:
 #      schema-locations: classpath:db/schema-h2.sql
