@@ -13,6 +13,7 @@ import com.seekcat.reggie.service.impl.SetmealServiceImpl;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,13 +25,16 @@ import java.util.List;
 @RestController
 public class SetmealController {
     @Resource
-    SetmealServiceImpl setmealService;
+    private SetmealServiceImpl setmealService;
 
     @Resource
-    SetmealDishServiceImpl setmealDishService;
+    private SetmealDishServiceImpl setmealDishService;
 
     @Resource
-    CategoryServiceImpl categoryService;
+    private CategoryServiceImpl categoryService;
+
+    @Resource
+    private SetmealServiceImpl setmealServiceImpl;
 
 
     /**
@@ -41,7 +45,7 @@ public class SetmealController {
         Page<SetmealDto> p1 = new Page<>(page, pageSize);
         Page<Setmeal> p2 = new Page<>(page, pageSize);
 
-        setmealService.lambdaQuery().like(name != null,Setmeal::getName,name).orderByDesc(Setmeal::getCreateTime).page(p2);
+        setmealService.lambdaQuery().like(name != null, Setmeal::getName, name).orderByDesc(Setmeal::getCreateTime).page(p2);
         BeanUtils.copyProperties(p2, p1, "records");
 
         List<Setmeal> Setmeals = p2.getRecords();
@@ -149,7 +153,7 @@ public class SetmealController {
          * */
 
         ids.forEach(id -> {
-            if (!setmealService.getById(id).getStatus().equals(1)){
+            if (!setmealService.getById(id).getStatus().equals(1)) {
                 throw new SetmealStatusException(setmealService.getById(id).getName());
             }
             setmealDishService.lambdaUpdate().eq(SetmealDish::getSetmealId, id).remove();
@@ -158,5 +162,27 @@ public class SetmealController {
         ids.forEach(id -> setmealDishService.lambdaUpdate().eq(SetmealDish::getSetmealId, id).remove());
 
         return Result.success(null);
+    }
+
+    /**
+     *
+     */
+    @GetMapping("/list")
+    @Cacheable(value = "SetmealByCategory",key = "#root.args[0]")
+    public Result<List<SetmealDto>> selectList(@RequestParam Long categoryId, @RequestParam Integer status) {
+        List<Setmeal> setmeals = setmealServiceImpl.lambdaQuery().eq(Setmeal::getCategoryId, categoryId).eq(Setmeal::getStatus,1).list();
+        List<SetmealDto> setmealDtos = new ArrayList<>();
+
+        setmeals.forEach((setmeal -> {
+            SetmealDto setmealDto = new SetmealDto();
+            BeanUtils.copyProperties(setmeal, setmealDto);
+
+            setmealDto.setSetmealDishes(setmealDishService.lambdaQuery().eq(SetmealDish::getSetmealId, setmealDto.getId()).list());
+            setmealDto.setCategoryName(categoryService.getById(setmeal.getCategoryId()).getName());
+            setmealDtos.add(setmealDto);
+        }));
+
+        return Result.success(setmealDtos);
+
     }
 }

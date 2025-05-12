@@ -2,6 +2,7 @@ package com.seekcat.reggie.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,18 +16,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Data
 public class Dish implements Serializable {
-
-    public Dish(Long id, String name, Long categoryId, BigDecimal price, String code, String image, String description, Integer status, Integer sort) {
-        this.id = id;
-        this.name = name;
-        this.categoryId = categoryId;
-        this.price = price;
-        this.code = code;
-        this.image = image;
-        this.description = description;
-        this.status = status;
-        this.sort = sort;
-    }
 
     private static final long serialVersionUID = 1L;
 
