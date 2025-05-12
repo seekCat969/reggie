@@ -2,8 +2,6 @@ package com.seekcat.reggie.controller;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.seekcat.reggie.common.OSSManage;
 import com.seekcat.reggie.common.Result;
@@ -18,17 +16,14 @@ import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 
 @Slf4j
@@ -48,14 +43,6 @@ public class DishController {
     @Resource
     OSSManage ossManage;
 
-    @Resource
-    StringRedisTemplate stringRedisTemplate;
-
-    @Resource
-    ObjectMapper objectMapper;
-
-    @Resource
-    RedisCacheManager cacheManager;
 
     /**
      * 分页查询
