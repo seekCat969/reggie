@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.DigestUtils;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 @Slf4j
@@ -23,6 +24,9 @@ class RegierApplicationTests {
     EmployeeServiceImpl employeeServiceImpl;
     @Resource
     DishMapper dishMapper;
+
+    @Resource
+    DataSource dataSource;
 
     /**
      * 条件构造器Wrapper
@@ -39,6 +43,11 @@ class RegierApplicationTests {
     @Test
     void testMD5Hex(){
         log.warn(DigestUtils.md5DigestAsHex("passwd".getBytes()));
+    }
+
+    @Test
+    void test2(){
+        System.out.println(dataSource.getClass().getName());
     }
 
 }
