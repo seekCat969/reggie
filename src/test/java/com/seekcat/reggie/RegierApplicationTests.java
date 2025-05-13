@@ -1,6 +1,7 @@
 package com.seekcat.reggie;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.seekcat.reggie.entity.Category;
 import com.seekcat.reggie.mapper.DishMapper;
 import com.seekcat.reggie.mapper.EmployeeMapper;
 import com.seekcat.reggie.entity.Dish;
@@ -48,6 +49,12 @@ class RegierApplicationTests {
     @Test
     void test2(){
         System.out.println(dataSource.getClass().getName());
+    }
+
+    @Test
+    void test3(){
+        Category category = new Category();
+        System.out.println(category);
     }
 
 }
